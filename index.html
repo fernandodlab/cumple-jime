@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>¡Feliz Cumple, Jimena!</title>
+  <meta name="description" content="Un regalito de las niñas para Jimena ❤️">
+  <style>
+    :root{
+      --bg: #fff7f9;
+      --fg: #33272a;
+      --accent: #ff7aa2;
+      --accent-2: #8bd3dd;
+      --card: #ffffff;
+      --muted: #6b6b6b;
+      --radius: 16px;
+      --shadow: 0 10px 25px rgba(0,0,0,.08);
+    }
+    * { box-sizing: border-box; }
+    body{
+      margin:0;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, Apple Color Emoji, Segoe UI Emoji, Noto Color Emoji, sans-serif;
+      color: var(--fg);
+      background: radial-gradient(65% 50% at 50% 0%, #ffe2ea, var(--bg));
+      line-height: 1.45;
+    }
+    header{
+      padding: 48px 20px 12px;
+      text-align:center;
+      position:relative;
+      overflow:hidden;
+    }
+    h1{
+      font-size: clamp(26px, 4.5vw, 50px);
+      margin: 0 0 9px;
+    }
+    .subtitle{
+      font-size: clamp(16px, 2.5vw, 20px);
+      color: var(--muted);
+      margin-bottom: 24px;
+    }
+    .cta{
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      background: var(--accent);
+      color:#fff;
+      padding: 12px 18px;
+      border: 0;
+      border-radius: 999px;
+      box-shadow: var(--shadow);
+      cursor: pointer;
+      font-weight: 600;
+    }
+    .container{
+      width:min(1050px, 92%);
+      margin: 0 auto 64px;
+    }
+    .card{
+      background: var(--card);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 18px;
+    }
+    .grid{
+      display:grid;
+      gap: 16px;
+    }
+    .two-col{ grid-template-columns: 1fr; }
+    @media (min-width: 860px){
+      .two-col{ grid-template-columns: 1fr 1fr; }
+    }
+    video, img{
+      width: 100%;
+      height: auto;
+      display:block;
+      border-radius: 12px;
+    }
+    .gallery{
+      display:grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+    }
+    @media (min-width: 720px){
+      .gallery{ grid-template-columns: repeat(4, 1fr); }
+    }
+    footer{
+      text-align:center;
+      color: var(--muted);
+      padding: 40px 12px 60px;
+      font-size: 14px;
+    }
+    /* confetti canvas */
+    canvas#confetti{
+      position: fixed;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 1;
+    }
+    .content{
+      position: relative;
+      z-index: 2;
+    }
+    .badge{
+      display:inline-block;
+      background: var(--accent-2);
+      color:#093a3e;
+      padding: 6px 12px;
+      border-radius: 999px;
+      font-size: 14px;
+      margin-bottom: 10px;
+      font-weight: 600;
+    }
+  </style>
+</head>
+<body>
+  <canvas id="confetti"></canvas>
+  <div class="content">
+    <header>
+      <div class="badge">Hecho con amor por las peques</div>
+      <h1>¡Feliz cumpleaños, Mami! 🎉</h1>
+      <p class="subtitle">Un saludo especial con dos videítos y algunas fotos que te van a sacar una sonrisa ❤️</p>
+    </header>
+
+    <main class="container grid two-col">
+      <section class="card">
+        <video controls playsinline preload="metadata" poster="assets/lasdos.png">
+          <source src="assets/IMG_6575.mov" type="video/mp4">
+          Tu navegador no soporta video HTML5.
+        </video>
+      </section>
+
+      <section class="card">
+        <!-- Reemplazá 'video2.mp4' en /assets con tu archivo -->
+        <video controls playsinline preload="metadata" poster="assets/sofi.png">
+          <source src="assets/IMG_6570.mov" type="video/mp4">
+          Tu navegador no soporta video HTML5.
+        </video>
+      </section>
+
+      <section class="card" style="grid-column:1/-1;">
+        <h2 style="margin:6px 8px 12px;">Galería</h2>
+        <!-- Reemplazá las fotos por las de tu galería -->
+        <div class="gallery">
+          <img src="assets/1.jpg" alt="Foto 1 de las niñas">
+          <img src="assets/2.jpg" alt="Foto 2 de las niñas">
+          <img src="assets/3.jpg" alt="Foto 3 de las niñas">
+          <img src="assets/4.jpg" alt="Foto 4 de las niñas">
+          <img src="assets/5.jpg" alt="Foto 5 de las niñas">
+          <img src="assets/6.jpg" alt="Foto 6 de las niñas">
+          <img src="assets/7.jpg" alt="Foto 7 de las niñas">
+          <img src="assets/8.jpg" alt="Foto 8 de las niñas">
+        </div>
+      </section>
+    </main>
+
+    <footer>Hecho con mucho amor 💖 — Fer, Clarita y Sofi</footer>
+  </div>
+
+  <script>
+    // Confetti minimal (sin dependencias)
+    (() => {
+      const canvas = document.getElementById('confetti');
+      const ctx = canvas.getContext('2d');
+      let W, H;
+      function resize(){
+        W = canvas.width = window.innerWidth;
+        H = canvas.height = window.innerHeight;
+      }
+      window.addEventListener('resize', resize, {passive:true});
+      resize();
+
+      const COLORS = ['#ff7aa2','#ffd166','#8bd3dd','#95d5b2','#cdb4db','#f4a261','#90caf9'];
+      const pieces = Array.from({length: 180}, () => ({
+        x: Math.random()*W,
+        y: Math.random()*-H,
+        r: 5 + Math.random()*8,
+        c: COLORS[Math.floor(Math.random()*COLORS.length)],
+        vy: 1 + Math.random()*3,
+        vx: -1 + Math.random()*2,
+        rot: Math.random()*360,
+        vr: -3 + Math.random()*6
+      }));
+
+      let running = false;
+      function draw(){
+        if(!running) return;
+        ctx.clearRect(0,0,W,H);
+        for(const p of pieces){
+          ctx.save();
+          ctx.translate(p.x, p.y);
+          ctx.rotate(p.rot * Math.PI/180);
+          ctx.fillStyle = p.c;
+          ctx.fillRect(-p.r/2, -p.r/2, p.r, p.r*0.6);
+          ctx.restore();
+          p.y += p.vy;
+          p.x += p.vx;
+          p.rot += p.vr;
+          if(p.y > H + 10) { p.y = -10; p.x = Math.random()*W; }
+        }
+        requestAnimationFrame(draw);
+      }
+
+      function startConfetti() {
+        running = true;
+        draw();
+        setTimeout(() => running = false, 6000); // se corta a los 6s
+      }
+
+    // lanzar confeti automáticamente al cargar la página
+    window.addEventListener('load', startConfetti);
+    })();
+  </script>
+</body>
+</html>
